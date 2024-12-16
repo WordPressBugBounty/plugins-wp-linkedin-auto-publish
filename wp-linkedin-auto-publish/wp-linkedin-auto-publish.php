@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.15
+*		Version: 8.16
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -723,16 +723,30 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
     } else {
         $linkedinComment = get_post_meta($postId, '_custom_linkedin_share_message', true ); 
     }
+
+
+    $linkedinComment = nl2br($linkedinComment);
+    $linkedinComment = strip_tags($linkedinComment,'<p><br>'); //this extra parameter is the solution to fix line breaks
+    $linkedinComment = str_replace('<br />','',$linkedinComment);
+
+    $linkedinComment = str_replace('|', '', $linkedinComment); //we remove pipe characters because LinkedIn doesn't put anything after a pipe
+
     
     //for each variable used replace it with the actual value
     //create an associative array to be used for shortcode replacement 
     $post_title = html_entity_decode(get_the_title($postId));
     
+    $post_content = preg_replace("~(?:\[/?)[^/\]]+/?\]~s", '',strip_tags(get_post_field('post_content',$postId)));
+    $post_content = str_replace('|', '', $post_content);
+
+    $post_except = html_entity_decode( get_the_excerpt($postId), ENT_COMPAT, 'UTF-8' );
+    $post_except = str_replace('|', '', $post_except);
+
     $variables = array(
         "post_title" => $post_title,
         "post_link" => get_permalink($postId),
-        "post_excerpt" => html_entity_decode( get_the_excerpt($postId), ENT_COMPAT, 'UTF-8' ),
-        "post_content" => preg_replace("~(?:\[/?)[^/\]]+/?\]~s", '',strip_tags(get_post_field('post_content',$postId))),
+        "post_excerpt" => $post_except,
+        "post_content" => $post_content,
         "post_author" => get_the_author_meta('display_name',get_post_field('post_author',$postId)),
         "website_title" => html_entity_decode(get_bloginfo('name'))
     );    
@@ -756,7 +770,7 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
     $linkedinComment = str_replace('>','\\>',$linkedinComment);
 
     //limit the comment to 700 characters total
-    $linkedinComment = substr($linkedinComment, 0, 3000);    
+    $linkedinComment = substr($linkedinComment, 0, 3000);  
 
     // Create JSON body
     $json = array(
