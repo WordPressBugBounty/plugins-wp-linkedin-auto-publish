@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.16
+*		Version: 8.17
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -725,22 +725,19 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
     }
 
 
-    $linkedinComment = nl2br($linkedinComment);
+    // $linkedinComment = nl2br($linkedinComment);
     $linkedinComment = strip_tags($linkedinComment,'<p><br>'); //this extra parameter is the solution to fix line breaks
     $linkedinComment = str_replace('<br />','',$linkedinComment);
-
-    $linkedinComment = str_replace('|', '', $linkedinComment); //we remove pipe characters because LinkedIn doesn't put anything after a pipe
-
     
     //for each variable used replace it with the actual value
     //create an associative array to be used for shortcode replacement 
     $post_title = html_entity_decode(get_the_title($postId));
     
     $post_content = preg_replace("~(?:\[/?)[^/\]]+/?\]~s", '',strip_tags(get_post_field('post_content',$postId)));
-    $post_content = str_replace('|', '', $post_content);
+    // $post_content = str_replace('|', '', $post_content);
 
     $post_except = html_entity_decode( get_the_excerpt($postId), ENT_COMPAT, 'UTF-8' );
-    $post_except = str_replace('|', '', $post_except);
+    // $post_except = str_replace('|', '', $post_except);
 
     $variables = array(
         "post_title" => $post_title,
@@ -770,6 +767,8 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
     $linkedinComment = str_replace('>','\\>',$linkedinComment);
 
     //limit the comment to 700 characters total
+    $linkedinComment = str_replace('|', '\\|', $linkedinComment); 
+
     $linkedinComment = substr($linkedinComment, 0, 3000);  
 
     // Create JSON body
@@ -1639,7 +1638,7 @@ function wp_linkedin_autopublish_update_meta_on_post(){
 	}
     
     
-    $updatedShareMessage = sanitize_text_field($_POST['updatedShareMessage']);
+    $updatedShareMessage = sanitize_textarea_field($_POST['updatedShareMessage']);
     $dontShareAction = sanitize_text_field($_POST['dontShareAction']);
     $profiles = sanitize_text_field($_POST['profiles']);
 
