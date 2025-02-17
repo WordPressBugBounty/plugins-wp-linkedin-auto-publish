@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.17
+*		Version: 8.18
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -588,10 +588,16 @@ function wp_linkedin_autopublish_build_meta_box ($post) {
     
     <?php if(metadata_exists('post', $post->ID, '_sent_to_linkedin')) {
     echo '<strong>Share History</strong></br>';
+    
+        $sent_to_linkedin = get_post_meta($post->ID, '_sent_to_linkedin', true );
+        
+        if( is_array($sent_to_linkedin) ){
+            foreach(array_reverse($sent_to_linkedin) as $share){
+                echo $share.'</br>';
+            }
+        }
             
-    foreach(array_reverse(get_post_meta($post->ID, '_sent_to_linkedin', true )) as $share){
-            echo $share.'</br>';
-    }                    
+
     }
     ?>
     <a href="" style="margin-top: 10px;" data="<?php echo $post->ID; ?>" class="custom-linkedin-metabox-setting button send-to-linkedin"><?php echo __( 'Share Now', 'wp_linkedin_autopublish' ); ?></a>
@@ -1247,9 +1253,14 @@ function wp_linkedin_autopublish_additional_posts_column_data( $column ) {
 
     case 'shared_on_linkedin' :
     if(metadata_exists('post', $post->ID, '_sent_to_linkedin')) {
-    foreach(array_reverse(get_post_meta($post->ID, '_sent_to_linkedin', true )) as $share){
-            echo $share.'</br>';
-    }   
+
+        $sent_to_linkedin = get_post_meta($post->ID, '_sent_to_linkedin', true );
+
+        if(is_array($sent_to_linkedin)){
+            foreach(array_reverse($sent_to_linkedin) as $share){
+                    echo $share.'</br>';
+            }   
+        }
     } else {
        
         echo 'Not shared <a class="send-to-linkedin" href="" data="'.$post->ID.'">Share now</a>';    
