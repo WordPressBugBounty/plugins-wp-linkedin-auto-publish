@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.19
+*		Version: 8.20
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -895,7 +895,7 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
 
                 $response = wp_remote_post( 'https://api.linkedin.com/rest/images?action=initializeUpload', array(
                     'headers' => array(
-                        'Linkedin-Version' => '202405',
+                        'Linkedin-Version' => '202505',
                         'Authorization' => 'Bearer '.$optionsAuth['access_token'],
                         'Content-Type' => 'application/json',
                     ),
@@ -982,7 +982,7 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
 
             $response = wp_remote_post( $url, array(
                 'headers' => array(
-                    'Linkedin-Version' => '202405',
+                    'Linkedin-Version' => '202505',
                     'Authorization' => 'Bearer '.$optionsAuth['access_token'],
                     'Content-Type' => 'application/json',
                 ),
@@ -1316,7 +1316,7 @@ function wp_linkedin_autopublish_get_companies() {
 
             $json_feed = wp_remote_get( $companyUrl, array(
                 'headers' => array(
-                    'Linkedin-Version' => '202405',
+                    'Linkedin-Version' => '202505',
                     'Authorization' => 'Bearer '.$options['access_token'],
                     'X-RestLi-Protocol-Version' => '2.0.0',
                 ),
@@ -1360,7 +1360,7 @@ function wp_linkedin_autopublish_get_companies() {
                     $response = wp_remote_get( $url, array(
                         'headers' => array(
                             'Authorization' => 'Bearer '.$options['access_token'],
-                            'Linkedin-Version' => '202405',
+                            'Linkedin-Version' => '202505',
                             'X-Restli-Protocol-Version' => '2.0.0',
                         ),
                     ));
