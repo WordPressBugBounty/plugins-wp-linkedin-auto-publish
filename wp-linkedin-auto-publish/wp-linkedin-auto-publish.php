@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.20
+*		Version: 8.21
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -778,7 +778,9 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
     //fix for gutenberg where there's extra line breaks
     $linkedinComment = preg_replace("/(\n\s*){4,}/", "\n\n", $linkedinComment);
 
-    $linkedinComment = substr($linkedinComment, 0, 3000);  
+    $linkedinComment = substr($linkedinComment, 0, 3000);
+    
+    $linkedinComment = apply_filters('wp_linkedin_auto_publish_customise_content', $linkedinComment, $postId);
 
     // Create JSON body
     $json = array(
