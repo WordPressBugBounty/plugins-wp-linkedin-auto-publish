@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.21
+*		Version: 8.22
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -12,6 +12,18 @@
 *		Licence: GPL2
 */
 
+
+/**
+* 
+*
+*
+* Create filter for permissions
+*/
+function wp_linkedin_autopublish_permission_to_edit(){
+
+    return apply_filters('wp_linkedin_autopublish_permission_to_edit', 'manage_options');
+
+}
 
 
 /**
@@ -27,7 +39,7 @@ function wp_linkedin_autopublish_add_admin_menu(  ) {
     $menu_icon_svg = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDIwIDIwIiBvdmVyZmxvdz0ic2Nyb2xsIiB4bWw6c3BhY2U9InByZXNlcnZlIj48Zz48Zz48Zz48cGF0aCBmaWxsPSIjOUVBM0E3IiBkPSJNMTcuNywxSDIuM0MxLjYsMSwxLDEuNiwxLDIuM3YxNS40QzEsMTguNCwxLjYsMTksMi4zLDE5aDE1LjNjMC43LDAsMS4zLTAuNiwxLjMtMS4zVjIuM0MxOSwxLjYsMTguNCwxLDE3LjcsMXogTTYuMywxNi4zSDMuN1Y3LjdoMi43VjE2LjN6IE01LDYuNkM0LjEsNi42LDMuNSw1LjksMy41LDVjMC0wLjksMC43LTEuNSwxLjUtMS41YzAuOSwwLDEuNSwwLjcsMS41LDEuNUM2LjYsNS45LDUuOSw2LjYsNSw2LjZ6IE0xNi4zLDE2LjNoLTIuN3YtNC4yYzAtMSwwLTIuMy0xLjQtMi4zYy0xLjQsMC0xLjYsMS4xLTEuNiwyLjJ2NC4ySDhWNy43aDIuNnYxLjJoMGMwLjQtMC43LDEuMi0xLjQsMi41LTEuNGMyLjcsMCwzLjIsMS44LDMuMiw0LjFWMTYuM3oiLz48L2c+PC9nPjwvZz48L3N2Zz4=';
     
     global $wp_linkedin_autopublish_settings_page;
-	$wp_linkedin_autopublish_settings_page = add_menu_page( 'WP LinkedIn Auto Publish', 'WP LinkedIn Auto Publish', 'manage_options', 'wp_linkedin_auto_publish', 'wp_linkedin_autopublish_options_page',$menu_icon_svg);
+	$wp_linkedin_autopublish_settings_page = add_menu_page( 'WP LinkedIn Auto Publish', 'WP LinkedIn Auto Publish', wp_linkedin_autopublish_permission_to_edit(), 'wp_linkedin_auto_publish', 'wp_linkedin_autopublish_options_page',$menu_icon_svg);
 }
 /**
 * 
@@ -184,7 +196,7 @@ function wp_linkedin_autopublish_posts_page_url() {
 */
 function wp_linkedin_autopublish_save_access_token(){
 
-    if ( ! current_user_can( 'manage_options') ){
+    if ( ! current_user_can( wp_linkedin_autopublish_permission_to_edit() ) ){
 		return;
 	}
             
@@ -1136,7 +1148,7 @@ add_action('publish_to_publish','wp_linkedin_autopublish_remove_function_except_
 function wp_linkedin_autopublish_token_expiry_warning() {
     
     //only show if current user can manage options as re-authentication can only occur on the settings page and only admin users can access this
-    if (current_user_can('manage_options')) {
+    if (current_user_can(wp_linkedin_autopublish_permission_to_edit())) {
 
         $options = get_option( 'wp_linkedin_autopublish_auth_settings' );
 
@@ -1454,7 +1466,7 @@ function wp_linkedin_autopublish_get_profile() {
 */
 function wp_linkedin_autopublish_dismiss_welcome_message() {
     
-    if (!current_user_can('manage_options')) {
+    if (!current_user_can(wp_linkedin_autopublish_permission_to_edit())) {
         wp_die();    
     }
     

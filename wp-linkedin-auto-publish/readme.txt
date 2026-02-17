@@ -3,8 +3,8 @@ Contributors: northernbeacheswebsites
 Donate link: https://northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/
 Tags: linkedin, linkedin profile, linkedin company, linkedin companies, auto publish, autopublish, add link to linkedin, linkedin auto publish, social media auto publish, social network auto publish
 Requires at least: 3.0.1
-Tested up to: 6.9
-Stable tag: 8.21
+Tested up to: 6.9.1
+Stable tag: 8.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +57,9 @@ Frequently asked questions can be found under the help tab on the plugin setting
 
 
 == Changelog ==
+
+= 8.22 =
+* New filter to modify permission to edit plugin settings
 
 = 8.21 =
 * New filter to modify content before sharing
