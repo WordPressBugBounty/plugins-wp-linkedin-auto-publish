@@ -214,7 +214,8 @@ function wp_linkedin_autopublish_profile_selection_render() {
                 $html .= '<div class="profile-information">';
                     
                     //address
-                    $html .= '<span class="profile-name">'.$getProfile['firstName']['localized']['en_US'].' '.$getProfile['lastName']['localized']['en_US'].'</span>';
+                    $language = wp_linkedin_autopublish_get_language();
+                    $html .= '<span class="profile-name">'.$getProfile['firstName']['localized'][$language].' '.$getProfile['lastName']['localized'][$language].'</span>';
         
                     //name
                     $html .= '<span class="profile-description">Profile</span>';

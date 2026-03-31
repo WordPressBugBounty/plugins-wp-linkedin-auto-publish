@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.22
+*		Version: 8.23
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -56,6 +56,18 @@ require('inc/options-output.php');
 */
 function wp_linkedin_autopublish_options_page(  ) { 
     require('inc/options-page-wrapper.php');
+}
+
+/**
+* 
+*
+*
+* Set language and apply filter globally
+*/
+function wp_linkedin_autopublish_get_language(){
+
+    return apply_filters('wp_linkedin_autopublish_language', 'en_US');
+
 }
 /**
 * 
@@ -868,7 +880,10 @@ function wp_linkedin_autopublish_post_to_linkedin_common ($postId){
             //to achieve this we are going to see if the profile is in the profile 
 
             if($profile == $getProfile['id']){ 
-                $shareName = $getProfile['firstName']['localized']['en_US'].' '.$getProfile['lastName']['localized']['en_US'];
+
+                $language = wp_linkedin_autopublish_get_language();
+
+                $shareName = $getProfile['firstName']['localized'][$language].' '.$getProfile['lastName']['localized'][$language];
                 $author = 'urn:li:person:'.$profile;
                 $json['author'] = $author;
 
@@ -1574,7 +1589,8 @@ function wp_linkedin_autopublish_get_companies_render_profile_list_items($select
                 $html .= '<div class="profile-information">';
                     
                     //address
-                    $html .= '<span class="profile-name">'.$getProfile['firstName']['localized']['en_US'].' '.$getProfile['lastName']['localized']['en_US'].'</span>';
+                    $language = wp_linkedin_autopublish_get_language();
+                    $html .= '<span class="profile-name">'.$getProfile['firstName']['localized'][$language].' '.$getProfile['lastName']['localized'][$language].'</span>';
             
                     //name
                     $html .= '<span class="profile-description">Profile</span>';
