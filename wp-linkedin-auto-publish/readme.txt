@@ -4,7 +4,7 @@ Donate link: https://northernbeacheswebsites.com.au/product/donate-to-northern-b
 Tags: linkedin, linkedin profile, linkedin company, linkedin companies, auto publish, autopublish, add link to linkedin, linkedin auto publish, social media auto publish, social network auto publish
 Requires at least: 3.0.1
 Tested up to: 6.9.4
-Stable tag: 8.23
+Stable tag: 8.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +57,9 @@ Frequently asked questions can be found under the help tab on the plugin setting
 
 
 == Changelog ==
+
+= 8.24 =
+* Update to authentication redirect URL
 
 = 8.23 =
 * New filter to change language of profiles

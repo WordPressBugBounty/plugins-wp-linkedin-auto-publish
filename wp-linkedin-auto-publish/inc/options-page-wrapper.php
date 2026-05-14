@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 <div class="wrap">
     <div id="poststuff">
         <!--main heading-->
-        <h1><i style="color: #0077b5;" class="fa fa-linkedin-square" aria-hidden="true"></i> <?php echo 'WP LinkedIn Auto Publish'; ?><a target="_blank" class="donate-button" href="https://northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/">Donate now</a></h1>
+        <h1><i style="color: #0077b5;" class="fa fa-linkedin-square" aria-hidden="true"></i> <?php echo 'WP LinkedIn Auto Publish'; ?><a target="_blank" class="donate-button" href="https://plugins.northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/">Donate now</a></h1>
         
         <!--notice message-->
         
@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
         echo '<div class="notice notice-error">';
             echo '<h3 style="margin-top: 15px;" >Upgrade to AutoSocial now!</h3>';
 
-            echo '<p>Please check out the pro version <a href="https://northernbeacheswebsites.com.au/autosocial/">AutoSocial</a> which provides the same functionality as WP LinkedIn Auto Publish but adds Facebook, Google My Business, Twitter, <strong>Instagram (NEW)</strong> and <strong>Pinterest (NEW)</strong>, as well as many more cool features!</p>';
+            echo '<p>Please check out the pro version <a href="https://plugins.northernbeacheswebsites.com.au/autosocial/">AutoSocial</a> which provides the same functionality as WP LinkedIn Auto Publish but adds Facebook, Google My Business, Twitter, <strong>Instagram (NEW)</strong> and <strong>Pinterest (NEW)</strong>, as well as many more cool features!</p>';
 
-            echo '<a style="margin-top: 5px !important; margin-left: 0px !important; color: white !important;" href="https://northernbeacheswebsites.com.au/autosocial/" class="button button-primary">
+            echo '<a style="margin-top: 5px !important; margin-left: 0px !important; color: white !important;" href="https://plugins.northernbeacheswebsites.com.au/autosocial/" class="button button-primary">
             Learn More</a>';
 
         echo '</div>';

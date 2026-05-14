@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.23
+*		Version: 8.24
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -78,7 +78,7 @@ function wp_linkedin_autopublish_get_language(){
 function wp_linkedin_autopublish_plugin_links( $links, $file ) {
    if ( strpos( $file, 'wp-linkedin-autopublish.php' ) !== false ) {
       $new_links = array(
-               '<a href="https://northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/" target="_blank">' . __('Donate') . '</a>',
+               '<a href="https://plugins.northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/" target="_blank">' . __('Donate') . '</a>',
                '<a href="https://wordpress.org/support/plugin/wp-linkedin-auto-publish" target="_blank">' . __('Support Forum') . '</a>',
             );
       $links = array_merge( $links, $new_links );
@@ -220,7 +220,7 @@ function wp_linkedin_autopublish_save_access_token(){
     $options = get_option( 'wp_linkedin_autopublish_settings' );    
 
     $code = $_POST['code']; 
-    $redirectUrl = 'https%3A%2F%2Fnorthernbeacheswebsites.com.au%2Fredirectlinkedin%2F';
+    $redirectUrl = 'https%3A%2F%2Fplugins.northernbeacheswebsites.com.au%2Fredirectlinkedin%2F';
 
     $response = wp_remote_post( 'https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code='.$code.'&redirect_uri='.$redirectUrl.'&client_id=8640n1zn844brm&client_secret=IDRdaazTtBBuREGS', array(
         'headers' => array(
@@ -442,7 +442,7 @@ function wp_linkedin_autopublish_tab_content ($tabName) {
                     $options = get_option( 'wp_linkedin_autopublish_settings' );
                     $optionsAuth = get_option( 'wp_linkedin_autopublish_auth_settings' );
     
-                    $redirectUrl = 'https%3A%2F%2Fnorthernbeacheswebsites.com.au%2Fredirectlinkedin%2F';
+                    $redirectUrl = 'https%3A%2F%2Fplugins.northernbeacheswebsites.com.au%2Fredirectlinkedin%2F';
 
                     $scope = array('w_organization_social','r_organization_social','w_member_social','r_basicprofile','r_liteprofile','rw_organization_admin');
                     $scope = implode('%20',$scope);

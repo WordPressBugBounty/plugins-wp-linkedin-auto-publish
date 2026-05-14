@@ -123,7 +123,7 @@
 
         </style>';
 
-        $html .= '<h1 class="northern_beaches_websites_heading">Check out other great plugins and services by Northern Beaches Websites or<a target="_blank" class="donate-button" href="https://northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/">Donate now</a></h1>';
+        $html .= '<h1 class="northern_beaches_websites_heading">Check out other great plugins and services by Northern Beaches Websites or<a target="_blank" class="donate-button" href="https://plugins.northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/">Donate now</a></h1>';
 
 
         
@@ -263,21 +263,21 @@
 
         $proPlugins = array(
             
-            array('name'=>'IdeaPush Pro','slug'=>'ideapush','description'=>'IdeaPush but with multiple boards and so much more!','cta'=>'https://northernbeacheswebsites.com.au/ideapush-pro/'),   
+            array('name'=>'IdeaPush Pro','slug'=>'ideapush','description'=>'IdeaPush but with multiple boards and so much more!','cta'=>'https://plugins.northernbeacheswebsites.com.au/ideapush-pro/'),   
             
-            array('name'=>'WP GoToWebinar Pro','slug'=>'wp-gotowebinar','description'=>'Sell your GoToWebinar\'s via WooCommerce and integrate with CRM and email marketing packages.','cta'=>'https://northernbeacheswebsites.com.au/wp-gotowebinar-pro/'),  
+            array('name'=>'WP GoToWebinar Pro','slug'=>'wp-gotowebinar','description'=>'Sell your GoToWebinar\'s via WooCommerce and integrate with CRM and email marketing packages.','cta'=>'https://plugins.northernbeacheswebsites.com.au/wp-gotowebinar-pro/'),  
 
-            array('name'=>'WP Roster Pro','slug'=>'wp-roster','description'=>'WP Roster but with advanced notifications, multiple rosters, run sheets and efficiency improvements.','cta'=>'https://northernbeacheswebsites.com.au/wp-roster-pro/'),  
+            array('name'=>'WP Roster Pro','slug'=>'wp-roster','description'=>'WP Roster but with advanced notifications, multiple rosters, run sheets and efficiency improvements.','cta'=>'https://plugins.northernbeacheswebsites.com.au/wp-roster-pro/'),  
 
-            array('name'=>'Pardot to Gravity Forms Connector','slug'=>'pardot-gravityforms-connector','description'=>'Connect Pardot to Gravity Forms with custom field support.','cta'=>'https://northernbeacheswebsites.com.au/pardot-to-gravity-forms-connector/'), 
+            array('name'=>'Pardot to Gravity Forms Connector','slug'=>'pardot-gravityforms-connector','description'=>'Connect Pardot to Gravity Forms with custom field support.','cta'=>'https://plugins.northernbeacheswebsites.com.au/pardot-to-gravity-forms-connector/'), 
 
-            array('name'=>'Progressive Profiling for Gravity Forms','slug'=>'progressive-profiling-gravityforms','description'=>'Brings the magic of progressive profiling to Gravity Forms.','cta'=>'https://northernbeacheswebsites.com.au/progressive-profiling-for-gravity-forms/'),       
+            array('name'=>'Progressive Profiling for Gravity Forms','slug'=>'progressive-profiling-gravityforms','description'=>'Brings the magic of progressive profiling to Gravity Forms.','cta'=>'https://plugins.northernbeacheswebsites.com.au/progressive-profiling-for-gravity-forms/'),       
 
-            array('name'=>'ServiceM8 to Gravity Forms Connector','slug'=>'servicem8-gravityforms-connector','description'=>'Connect ServiceM8 to Gravity Forms.','cta'=>'https://northernbeacheswebsites.com.au/servicem8-to-gravity-forms-connector/'), 
+            array('name'=>'ServiceM8 to Gravity Forms Connector','slug'=>'servicem8-gravityforms-connector','description'=>'Connect ServiceM8 to Gravity Forms.','cta'=>'https://plugins.northernbeacheswebsites.com.au/servicem8-to-gravity-forms-connector/'), 
 
-            array('name'=>'Sinch SMS Notifications for WooCommerce','slug'=>'sinch-sms-notifications-woocommerce','description'=>'Send SMS notifications for WooCommerce orders.','cta'=>'https://northernbeacheswebsites.com.au/sinch-sms-notifications-for-woocommerce/'), 
+            array('name'=>'Sinch SMS Notifications for WooCommerce','slug'=>'sinch-sms-notifications-woocommerce','description'=>'Send SMS notifications for WooCommerce orders.','cta'=>'https://plugins.northernbeacheswebsites.com.au/sinch-sms-notifications-for-woocommerce/'), 
 
-                array('name'=>'AutoSocial','slug'=>'autosocial','description'=>'Send posts to multiple social profiles.','cta'=>'https://northernbeacheswebsites.com.au/autosocial/'), 
+                array('name'=>'AutoSocial','slug'=>'autosocial','description'=>'Send posts to multiple social profiles.','cta'=>'https://plugins.northernbeacheswebsites.com.au/autosocial/'), 
         );
 
         foreach($proPlugins as $plugin){
@@ -347,15 +347,15 @@
 
         $services = array(
             
-            array('name'=>'Website Design & Development','description'=>'Custom website design and development for small-large businesses','cta'=>'http://northernbeacheswebsites.com.au/contact?enquiry=Website'),  
+            array('name'=>'Website Design & Development','description'=>'Custom website design and development for small-large businesses','cta'=>'https://plugins.northernbeacheswebsites.com.au/contact?enquiry=Website'),  
                 
-            array('name'=>'Graphic Design','description'=>'Logos, business cards, flyers, booklets, you name it, we do it!','cta'=>'http://northernbeacheswebsites.com.au/contact?enquiry=Graphics'), 
+            array('name'=>'Graphic Design','description'=>'Logos, business cards, flyers, booklets, you name it, we do it!','cta'=>'https://plugins.northernbeacheswebsites.com.au/contact?enquiry=Graphics'), 
             
-            array('name'=>'Search Engine Optimisation','description'=>'Get to the top of Google with Northern Beaches Websites.','cta'=>'http://northernbeacheswebsites.com.au/contact?enquiry=SEO'),
+            array('name'=>'Search Engine Optimisation','description'=>'Get to the top of Google with Northern Beaches Websites.','cta'=>'https://plugins.northernbeacheswebsites.com.au/contact?enquiry=SEO'),
 
-            array('name'=>'Ad Management','description'=>'Efficient and cost effective ad design and management with Google Adwords and Facebook Ads.','cta'=>'http://northernbeacheswebsites.com.au/contact?enquiry=Ad Management'),
+            array('name'=>'Ad Management','description'=>'Efficient and cost effective ad design and management with Google Adwords and Facebook Ads.','cta'=>'https://plugins.northernbeacheswebsites.com.au/contact?enquiry=Ad Management'),
 
-            array('name'=>'WordPress Support & Plugin Customisation/Development','description'=>'We know WordPress inside out, no matter how big or small your project is contact us for a quote.','cta'=>'http://northernbeacheswebsites.com.au/contact?enquiry=WordPress'),        
+            array('name'=>'WordPress Support & Plugin Customisation/Development','description'=>'We know WordPress inside out, no matter how big or small your project is contact us for a quote.','cta'=>'https://plugins.northernbeacheswebsites.com.au/contact?enquiry=WordPress'),        
 
         );
 
