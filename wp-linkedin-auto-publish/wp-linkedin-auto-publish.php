@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.24
+*		Version: 8.25
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -1327,17 +1327,15 @@ function wp_linkedin_autopublish_translations() {
 */
 function wp_linkedin_autopublish_get_companies() {
 	
+
     // delete_transient('wp_linkedin_autopublish_get_companies');
 
     $getTransient = get_transient('wp_linkedin_autopublish_get_companies'); 
     
     //if the transient exists
     if ($getTransient != false){
-
         return $getTransient;
-
     } else {
-        
         if( get_option( 'wp_linkedin_autopublish_auth_settings' ) ){
             $options = get_option( 'wp_linkedin_autopublish_auth_settings' );
 
@@ -1345,7 +1343,7 @@ function wp_linkedin_autopublish_get_companies() {
 
             $json_feed = wp_remote_get( $companyUrl, array(
                 'headers' => array(
-                    'Linkedin-Version' => '202505',
+                    'Linkedin-Version' => '202604',
                     'Authorization' => 'Bearer '.$options['access_token'],
                     'X-RestLi-Protocol-Version' => '2.0.0',
                 ),
@@ -1389,7 +1387,7 @@ function wp_linkedin_autopublish_get_companies() {
                     $response = wp_remote_get( $url, array(
                         'headers' => array(
                             'Authorization' => 'Bearer '.$options['access_token'],
-                            'Linkedin-Version' => '202505',
+                            'Linkedin-Version' => '202604',
                             'X-Restli-Protocol-Version' => '2.0.0',
                         ),
                     ));
