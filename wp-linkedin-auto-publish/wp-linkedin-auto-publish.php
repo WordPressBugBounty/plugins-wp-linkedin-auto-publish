@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.26
+*		Version: 8.27
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -543,7 +543,7 @@ function wp_linkedin_autopublish_build_meta_box ($post) {
     
     <p>        
     <?php if($current_dont_share_post_linkedin == "yes") $current_dont_share_post_linkedin_checked = 'checked="checked"'; ?>
-    <div id="dont-sent-to-linkedin-checkbox-line">   
+    <div id="dont-sent-to-linkedin-checkbox-line" data-dont-share-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_linkedin_autopublish_dont_share_nonce' ) ); ?>">   
     <input id="dont-sent-to-linkedin-checkbox" <?php if(isset($options['wp_linkedin_autopublish_default_publish'])){echo 'data="dont-publish-by-default"';}?> type="checkbox" name="dont-share-post-linkedin" value="yes" <?php if(isset($current_dont_share_post_linkedin_checked)){ echo esc_attr($current_dont_share_post_linkedin_checked);} ?>> <?php echo __( 'Don\'t share this post', 'wp-linkedin-autopublish' ); ?></div>
     </p>
     
@@ -1672,7 +1672,9 @@ function wp_linkedin_autopublish_get_companies_render_profile_list_items($select
 * This function updates the post meta when changed on the post
 */
 function wp_linkedin_autopublish_update_meta_on_post(){
-    
+
+    check_ajax_referer( 'wp_linkedin_autopublish_dont_share_nonce', 'nonce' );
+
     $post = intval($_POST['postID']);
     
     if ( ! current_user_can( 'edit_post', $post ) ){
@@ -1778,10 +1780,19 @@ add_action( 'wp_ajax_delete_all_linkedin_settings', 'wp_linkedin_autopublish_del
 * This function updates the dont share checkbox when the value is changed
 */
 function wp_linkedin_autopublish_update_dont_share_option (){
-    
+
+    //verify the request came from our own admin screen (not forged / no nonce = reject)
+    check_ajax_referer( 'wp_linkedin_autopublish_dont_share_nonce', 'nonce' );
+
     //set php variables from ajax variables
     $post = intval($_POST['postID']);
-    $dontShareAction = $_POST['dontShareAction'];
+
+    //verify the current user is actually allowed to edit THIS post
+    if ( ! current_user_can( 'edit_post', $post ) ){
+        wp_die();
+    }
+
+    $dontShareAction = sanitize_text_field( $_POST['dontShareAction'] );
     
     if($dontShareAction == "update"){
         update_post_meta($post, '_dont_share_post_linkedin','yes');     
