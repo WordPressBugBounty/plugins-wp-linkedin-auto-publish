@@ -4,7 +4,7 @@
 *		Plugin Name: WP LinkedIn Auto Publish
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Publish your latest posts to LinkedIn profiles or companies automatically. 
-*		Version: 8.27
+*		Version: 8.28
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-linkedin-auto-publish   
@@ -663,11 +663,7 @@ function wp_linkedin_autopublish_save_meta_boxes_data($post_id,$post){
 	}
     
     
-    if ( isset( $_REQUEST['dont-share-post-linkedin'] ) ) {
-		update_post_meta( $post_id, '_dont_share_post_linkedin', sanitize_text_field( $_POST['dont-share-post-linkedin'] ) );
-	} else {
-        delete_post_meta($post_id, '_dont_share_post_linkedin');
-    }
+    wp_linkedin_autopublish_store_dont_share( $post_id, isset( $_REQUEST['dont-share-post-linkedin'] ) );
 }
 add_action( 'save_post', 'wp_linkedin_autopublish_save_meta_boxes_data',10,2);
 
@@ -692,6 +688,40 @@ add_action( 'save_post', 'wp_linkedin_autopublish_save_meta_boxes_data',10,2);
 
 
 
+/**
+* Is the "By default don't share posts on LinkedIn" setting switched on?
+*/
+function wp_linkedin_autopublish_default_dont_share() {
+    $options = get_option( 'wp_linkedin_autopublish_settings' );
+    return is_array( $options ) && isset( $options['wp_linkedin_autopublish_default_publish'] );
+}
+/**
+* Store the state of the "Don't share this post" checkbox.
+* Checked = 'yes'. Unchecked = 'no' when the default is on (so an explicit "do share" can be told apart from "never touched"), otherwise the meta is removed as before.
+*/
+function wp_linkedin_autopublish_store_dont_share( $post_id, $dont_share ) {
+    if ( $dont_share ) {
+        update_post_meta( $post_id, '_dont_share_post_linkedin', 'yes' );
+    } elseif ( wp_linkedin_autopublish_default_dont_share() ) {
+        update_post_meta( $post_id, '_dont_share_post_linkedin', 'no' );
+    } else {
+        delete_post_meta( $post_id, '_dont_share_post_linkedin' );
+    }
+}
+/**
+* Should this post be held back from LinkedIn? Works even when the checkbox value hasn't been saved yet
+* (Gutenberg saves the post via REST first and the meta box afterwards, so on a first publish the meta can be missing).
+*/
+function wp_linkedin_autopublish_is_post_blocked( $post_id ) {
+    $stored = get_post_meta( $post_id, '_dont_share_post_linkedin', true );
+    if ( $stored === 'yes' ) {
+        return true;
+    }
+    if ( $stored === 'no' ) {
+        return false; //user explicitly chose to share
+    }
+    return wp_linkedin_autopublish_default_dont_share(); //nothing saved yet, fall back to the default setting
+}
 /**
 * 
 *
@@ -726,7 +756,7 @@ function wp_linkedin_autopublish_post_to_linkedin ($new_status, $old_status, $po
         $postType = $post->post_type;
 
         //first check if the user has decided to not share the post and check if the user has nominated to not share category belonging to the post and then check if the user has nominated to share the post type whether this be a post, page or custom post type
-        if(get_post_meta($post->ID, '_dont_share_post_linkedin', true ) !== "yes" && $thePostCategoryComparison == 0 && in_array($postType,$explodedPostTypes)) {  
+        if( ! wp_linkedin_autopublish_is_post_blocked( $post->ID ) && $thePostCategoryComparison == 0 && in_array($postType,$explodedPostTypes)) {  
 
             wp_linkedin_autopublish_post_to_linkedin_common ($post->ID);
 
@@ -1691,11 +1721,7 @@ function wp_linkedin_autopublish_update_meta_on_post(){
     update_post_meta($post, '_profile_selection_linkedin',$profiles);
 
     
-    if($dontShareAction == "update"){
-        update_post_meta($post, '_dont_share_post_linkedin','yes');     
-    } else {
-        delete_post_meta($post, '_dont_share_post_linkedin');    
-    }
+    wp_linkedin_autopublish_store_dont_share( $post, $dontShareAction == "update" );
 
 
 
@@ -1794,11 +1820,7 @@ function wp_linkedin_autopublish_update_dont_share_option (){
 
     $dontShareAction = sanitize_text_field( $_POST['dontShareAction'] );
     
-    if($dontShareAction == "update"){
-        update_post_meta($post, '_dont_share_post_linkedin','yes');     
-    } else {
-        delete_post_meta($post, '_dont_share_post_linkedin');    
-    }
+    wp_linkedin_autopublish_store_dont_share( $post, $dontShareAction == "update" );
     
     //return success
     echo "success";
